@@ -1,10 +1,20 @@
 import * as usersService from '../../utilities/users-service';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import PuppyCard from '../../components/PuppyCard/PuppyCard';
 
-function PuppyHistoryPage() {
+
+
+
+function PuppyDetailPage() {
     async function handleCheckToken() {
 		const expDate = await usersService.checkToken();
 		console.log(expDate);
 	}
+
+	const {
+		state: { puppy },
+	} = useLocation();
 
 	return (
 		<>
@@ -12,8 +22,10 @@ function PuppyHistoryPage() {
 			<button onClick={handleCheckToken}>
 				Check When My Login Expires
 			</button>
+			<PuppyCard puppy={puppy} key={puppy._id} />
+			
 		</>
 	);
 }
 
-export default PuppyHistoryPage;
+export default PuppyDetailPage;
